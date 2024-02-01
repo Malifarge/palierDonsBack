@@ -1,6 +1,7 @@
 const express = require("express")
 const  {Paliers} = require("../models")
 const verifyPalier = require("../middlewares/palier")
+const { userExist } = require("../middlewares/user")
 
 const app = express()
 
@@ -16,6 +17,19 @@ app.get('/palier',async (req,res)=>{
 app.get('/palier/:id',verifyPalier,async (req,res)=>{
     try{
         res.json(req.palier)
+    }catch(e){
+        res.status(500).json("Internal server error")
+    }
+})
+
+app.get('/palier/user/:user_Id',userExist,async(req,res)=>{
+    try{
+        const paliers = await Paliers.findAll({
+            where:{
+                user_Id:req.id
+            }
+        })
+        res.json(paliers)
     }catch(e){
         res.status(500).json("Internal server error")
     }

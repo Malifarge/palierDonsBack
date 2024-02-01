@@ -14,7 +14,7 @@ module.exports = (sequelize) =>{
             type: DataTypes.BOOLEAN,
             defaultValue: false
         },
-        Pseudo_Id : {
+        User_Id : {
             type: DataTypes.INTEGER,
             allowNull: false
         }

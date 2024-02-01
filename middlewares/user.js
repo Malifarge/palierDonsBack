@@ -3,7 +3,7 @@ const {Users}= require('../models')
 const emailExist = async(req,res,next)=>{
     const {email} = req.body
     try{
-        const userEmail = await Users.findAll({
+        const userEmail = await Users.findOne({
             where:{
                 email
             }
@@ -18,4 +18,27 @@ const emailExist = async(req,res,next)=>{
     }
 }
 
-module.exports = emailExist
+const userExist = async(req,res,next)=>{
+    const id = Number(req.params.user_Id)
+    try{
+        const user = await Users.findOne({
+            where:{
+                id
+            }
+        })
+        console.log(user);
+        if(user){
+            req.id = id
+            next()  
+        }else{
+            res.status(404).json("User not found")
+        }
+    }catch(e){
+        res.status(500).json("Internal server error")
+    }
+}
+
+module.exports = {
+    emailExist,
+    userExist
+    }
