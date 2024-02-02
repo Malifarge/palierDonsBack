@@ -26,9 +26,9 @@ const userExist = async(req,res,next)=>{
                 id
             }
         })
-        console.log(user);
         if(user){
             req.id = id
+            req.userName = user.userName
             next()  
         }else{
             res.status(404).json("User not found")
