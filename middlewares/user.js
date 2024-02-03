@@ -1,15 +1,15 @@
 const {Users}= require('../models')
 
-const emailExist = async(req,res,next)=>{
-    const {email} = req.body
+const userNameExist = async(req,res,next)=>{
+    const {userName} = req.body
     try{
-        const userEmail = await Users.findOne({
+        const UserName = await Users.findOne({
             where:{
-                email
+                userName
             }
         })
-        if(userEmail.length > 0){
-            res.status(409).json("Email déjà utilisé")
+        if(UserName.length > 0){
+            res.status(409).json("userName déjà utilisé")
         }else{
             next()
         }
@@ -39,6 +39,6 @@ const userExist = async(req,res,next)=>{
 }
 
 module.exports = {
-    emailExist,
+    userNameExist,
     userExist
     }

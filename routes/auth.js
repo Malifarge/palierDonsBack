@@ -19,7 +19,7 @@ app.post('/login',async(req,res)=>{
         if(user){
             const validPassword = await bcrypt.compare(password,user.password)
             if(validPassword){
-                const token = issueToken({id:user.id,email:user.email})
+                const token = issueToken({id:user.id})
                 res.json({
                     token
                 })
@@ -34,14 +34,13 @@ app.post('/login',async(req,res)=>{
     }
 })
 
-app.post('/signup',emailExist,async (req,res)=>{
-    const {userName,email,password} = req.body
+app.post('/signup', userNameExist,async (req,res)=>{
+    const {userName,password} = req.body
 
     const hashedPassword = await bcrypt.hash(password,10)
 
     const user = await Users.create({
         userName,
-        email,
         password: hashedPassword
     })
 
