@@ -2,7 +2,7 @@ const express = require("express")
 const bcrypt = require('bcrypt')
 const issueToken = require("../utils/jwt")
 const {Users}= require('../models')
-const {emailExist} = require("../middlewares/user")
+const { userNameExist } = require("../middlewares/user")
 
 const app = express()
 
