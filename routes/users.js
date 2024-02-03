@@ -21,4 +21,20 @@ app.get ('/user/:user_Id',userExist,(req,res)=>{
     res.json(req.userName)
 })
 
+app.delete('/user/:user_Id',userExist,async(req,res)=>{
+    const {id} = req
+    try{
+        const user = await Users.destroy(
+            {
+                where:{
+                    id
+                }
+            }
+        )
+        res.json(user)
+    }catch(e){
+        res.status(500).json("Internal server error")
+    }
+})
+
 module.exports = app

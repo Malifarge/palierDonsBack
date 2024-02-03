@@ -64,11 +64,12 @@ app.put('/palier/:id',verifyPalier,async (req,res)=>{
 })
 
 app.delete('/palier/:id',verifyPalier,async (req,res)=>{
+    const {id} = req
     try{
         const palier = await Paliers.destroy(
             {
                 where:{
-                    id:req.id
+                    id
                 }
             }
         )
