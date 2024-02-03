@@ -2,20 +2,17 @@ const {Users}= require('../models')
 
 const userNameExist = async(req,res,next)=>{
     const {userName} = req.body
-    try{
         const UserName = await Users.findOne({
             where:{
                 userName
             }
         })
-        if(UserName.length > 0){
+        console.log(UserName);
+        if(UserName){
             res.status(409).json("userName déjà utilisé")
         }else{
             next()
         }
-    }catch(e){
-        res.status(500).json("Internal server error")
-    }
 }
 
 const userExist = async(req,res,next)=>{
